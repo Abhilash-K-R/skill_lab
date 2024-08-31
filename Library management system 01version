@@ -78,62 +78,6 @@ books = {
     ]
 }
 
-
-students = {}
-librarian_password = 'admin123'
-
-def student_login():
-    print("Student Login")
-    student_id = input("Enter Student USN: ")
-    if student_id not in students:
-        students[student_id] = {'borrowed_books': [], 'history': []}
-
-    while True:
-        print("\n1. Show All Books")
-        print("2. Borrow Book")
-        print("3. Return Book")
-        print("4. View Borrow History")
-        print("5. Logout")
-        choice = input("Enter choice: ")
-
-        if choice == '1':
-            show_all_books()
-        elif choice == '2':
-            borrow_book(student_id)
-        elif choice == '3':
-            return_book(student_id)
-        elif choice == '4':
-            view_borrow_history(student_id)
-        elif choice == '5':
-            break
-        else:
-            print("Invalid choice, please try again.")
-
-def librarian_login():
-    password = input("Enter Librarian Password: ")
-    if password == librarian_password:
-        while True:
-            print("\nLibrarian Menu")
-            print("1. Show All Books")
-            print("2. View Student Borrow History")
-            print("3. Logout")
-            choice = input("Enter choice: ")
-
-            if choice == '1':
-                show_all_books()
-            elif choice == '2':
-                student_id = input("Enter Student USN : ")
-                if student_id in students:
-                    view_borrow_history(student_id)
-                else:
-                    print("Student not barrow any kind of books.")
-            elif choice == '3':
-                break
-            else:
-                print("Invalid choice, please try again.")
-    else:
-        print("Incorrect password.")
-
 def show_all_books():
     print("\nLibrary Books:")
     for section, books_list in books.items():
@@ -204,7 +148,6 @@ def return_book(student_id):
             return
     print("You have not. borrowed this book.")
 
-
 def view_borrow_history(student_id):
     print("\nBorrow History:")
     history = students[student_id]['history']
@@ -214,6 +157,61 @@ def view_borrow_history(student_id):
             print(f"{entry['title']} (Section: {entry['section']}) - Borrowed on {entry['borrow_time']}, Due on {entry['due_time']} - {status}")
     else:
         print("Not borrowed any kind of books.")
+
+students = {}
+librarian_password = 'admin123'
+
+def student_login():
+    print("Student Login")
+    student_id = input("Enter Student USN: ")
+    if student_id not in students:
+        students[student_id] = {'borrowed_books': [], 'history': []}
+
+    while True:
+        print("\n1. Show All Books")
+        print("2. Borrow Book")
+        print("3. Return Book")
+        print("4. View Borrow History")
+        print("5. Logout")
+        choice = input("Enter choice: ")
+
+        if choice == '1':
+            show_all_books()
+        elif choice == '2':
+            borrow_book(student_id)
+        elif choice == '3':
+            return_book(student_id)
+        elif choice == '4':
+            view_borrow_history(student_id)
+        elif choice == '5':
+            break
+        else:
+            print("Invalid choice, please try again.")
+
+def librarian_login():
+    password = input("Enter Librarian Password: ")
+    if password == librarian_password:
+        while True:
+            print("\nLibrarian Menu")
+            print("1. Show All Books")
+            print("2. View Student Borrow History")
+            print("3. Logout")
+            choice = input("Enter choice: ")
+
+            if choice == '1':
+                show_all_books()
+            elif choice == '2':
+                student_id = input("Enter Student USN : ")
+                if student_id in students:
+                    view_borrow_history(student_id)
+                else:
+                    print("Student not barrow any kind of books.")
+            elif choice == '3':
+                break
+            else:
+                print("Invalid choice, please try again.")
+    else:
+        print("Incorrect password.")
 
 def main():
     while True:
@@ -234,4 +232,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
